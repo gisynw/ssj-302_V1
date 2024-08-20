@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ArcGIS JavaScript API Tutorial</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.25/"></script>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #viewDiv {
+            height: calc(100% - 50px);
+            width: 100%;
+            float: left;
+            transition: width 0.3s ease;
+        }
+
+        #popupDiv {
+            width: 300px;
+            height: 100vh;
+            float: right;
+            overflow: auto;
+            background: white;
+            position: absolute;
+            right: 0;
+            top: 0;
+            display: none;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        #popupDiv.active {
+            display: block;
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .header {
+            top: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(34, 111, 14, 0.5);
+            z-index: 10;
+        }
+
+        .btn-switch {
+            background-color: rgba(34, 111, 14, 0.5);
+            color: #fff;
+            margin: 1px;
+            width: 100px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .active-map {
+            background-color: rgba(34, 111, 14, 1);
+        }
+
+        .custom-search-widget {
+            position: absolute;
+            right: 15px;
+            top: 60px;
+            /* Adjusted to avoid overlap with the header */
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="header esri-widget">
+        <div class="btn-switch active-map" data-layer="trailheads">Trailheads</div>
+        <div class="btn-switch" data-layer="trails">Trails</div>
+    </section>
+    <div id="viewDiv"></div>
+    <div id="popupDiv"></div>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer",
+            "esri/widgets/LayerList",
+            "esri/widgets/Legend",
+            "esri/widgets/Home",
+            "esri/widgets/Locate",
+            "esri/widgets/Search",
+            "esri/widgets/Expand",
+            "esri/PopupTemplate"
+        ], function (Map, MapView, FeatureLayer, LayerList, Legend, Home, Locate, Search, Expand, PopupTemplate) {
+            var map = new Map({
+                basemap: "topo-vector",
+            });
+
+            const view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [-118.70543, 34.10700],
+                zoom: 12
+            });
+
+            const trailheadsRenderer = {
+                "type": "simple",
+                "symbol": {
+                    "type": "picture-marker",
+                    "url": "http://static.arcgis.com/images/Symbols/NPS/npsPictograph_0231b.png",
+                    "width": "18px",
+                    "height": "18px"
+                }
+            };
+
+            const trailheadsLabels = {
+                symbol: {
+                    type: "text",
+                    color: "#FFFFFF",
+                    haloColor: "#5E8D74",
+                    haloSize: "2px",
+                    font: {
+                        size: "12px",
+                        family: "Noto Sans",
+                        style: "italic",
+                        weight: "normal"
+                    }
+                },
+                labelPlacement: "above-center",
+                labelExpressionInfo: {
+                    expression: "$feature.TRL_NAME"
+                }
+            };
+
+            // Define a pop-up for Trailheads
+            const popupTrailheads = {
+                "title": "Trailhead",
+                "content":
+                    "<b>Trail:</b> {TRL_NAME}<br>\
+                <b>City:</b> {CITY_JUR}<br>\
+                <b>Cross Street:</b> {X_STREET}<br>\
+                <b>Parking:</b> {PARKING}<br>\
+                <b>Elevation:</b> {ELEV_FT} ft"
+            }
+
+            // Trailheads feature layer (points)
+            const trailheads = new FeatureLayer({
+                url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0",
+                renderer: trailheadsRenderer,
+                labelingInfo: [trailheadsLabels],
+                outFields: ["TRL_NAME", "CITY_JUR", "X_STREET", "PARKING", "ELEV_FT"],
+                popupTemplate: popupTrailheads
+            });
+
+            // Trails feature layer (lines)
+            const trailsRenderer = {
+                type: "simple",
+                symbol: {
+                    color: "#BA55D3",
+                    type: "simple-line",
+                    style: "solid"
+                },
+                visualVariables: [
+                    {
+                        type: "size",
+                        field: "ELEV_GAIN",
+                        minDataValue: 0,
+                        maxDataValue: 2300,
+                        minSize: "3px",
+                        maxSize: "7px"
+                    }
+                ]
+            };
+
+            // Display a chart
+            // Define a popup for Trails
+            const popupTrails = {
+                title: "Trail Information",
+                content: [{
+                    type: "media",
+                    mediaInfos: [{
+                        type: "line-chart",
+                        caption: "",
+                        value: {
+                            fields: ["ELEV_MIN", "ELEV_MAX"],
+                            normalizeField: null,
+                            tooltipField: "Min and max elevation values"
+                        }
+                    }]
+                }]
+            }
+
+            const trailsLayer = new FeatureLayer({
+                url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trails/FeatureServer/0",
+                renderer: trailsRenderer,
+                opacity: 0.75,
+                outFields: ["TRL_NAME", "ELEV_GAIN"],
+                popupTemplate: popupTrails
+            });
+
+            // Parks and open spaces (polygons)
+            const bikeTrailsRenderer = {
+                type: "simple",
+                symbol: {
+                    type: "simple-line",
+                    style: "short-dot",
+                    color: "#FF91FF",
+                    width: "1px"
+                }
+            };
+
+            const parksLayer = new FeatureLayer({
+                url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Parks_and_Open_Space/FeatureServer/0",
+                renderer: bikeTrailsRenderer,
+                definitionExpression: "USE_BIKE = 'YES'"
+            });
+
+            // Initial map setup with trailheads as default
+            map.add(trailheads);
+            map.add(parksLayer, 0);
+
+            // Widgets
+            var homeBtn = new Home({
+                view: view
+            });
+
+            var locateWidget = new Locate({
+                view: view
+            });
+
+            var searchWidget = new Search({
+                view: view
+            });
+
+            var legend = new Legend({
+                view: view
+            });
+
+            var layerList = new LayerList({
+                view: view
+            });
+
+            view.ui.add(homeBtn, "top-left");
+            view.ui.add(locateWidget, "top-left");
+            view.ui.add(searchWidget, {
+                position: "top-right",
+                index: 0
+            });
+
+            var legendExpand = new Expand({
+                view: view,
+                content: legend,
+                expanded: true
+            });
+
+            view.ui.add(legendExpand, "bottom-left");
+
+            function showPopup() {
+                document.getElementById("popupDiv").classList.add("active");
+                document.getElementById("viewDiv").style.width = "calc(100% - 300px)";
+            }
+
+            function hidePopup() {
+                document.getElementById("popupDiv").classList.remove("active");
+                document.getElementById("viewDiv").style.width = "100%";
+            }
+
+            view.on("click", function (event) {
+                view.hitTest(event).then(function (response) {
+                    if (response.results.length > 0) {
+                        const filteredResults = response.results.filter((result) => {
+                            return (
+                                result.graphic.layer === trailheads ||
+                                result.graphic.layer === trailsLayer ||
+                                result.graphic.layer === parksLayer
+                            );
+                        });
+
+                        if (filteredResults.length > 0) {
+                            const graphic = filteredResults[0].graphic;
+                            const content = graphic.getEffectivePopupTemplate().content;
+                            const title = graphic.getEffectivePopupTemplate().title;
+                            const attributes = graphic.attributes;
+
+                            let popupContent = "<h3>" + title + "</h3><br>";
+                            if (Array.isArray(content)) {
+                                content.forEach(item => {
+                                    if (item.type === "media" && item.mediaInfos) {
+                                        item.mediaInfos.forEach(mediaInfo => {
+                                            popupContent += mediaInfo.caption + "<br>";
+                                            mediaInfo.value.fields.forEach(field => {
+                                                popupContent += attributes[field] + "<br>";
+                                            });
+                                        });
+                                    } else if (item.type === "text" && item.text) {
+                                        popupContent += item.text.replace(/{([^}]+)}/g, (match, field) => attributes[field]) + "<br>";
+                                    }
+                                });
+                            } else if (typeof content === "string") {
+                                popupContent += content.replace(/{([^}]+)}/g, (match, field) => attributes[field]) + "<br>";
+                            }
+
+                            document.getElementById("popupDiv").innerHTML = popupContent;
+                            showPopup();
+                            view.goTo({
+                                target: graphic.geometry,
+                                zoom: 15,
+                            });
+                        } else {
+                            hidePopup();
+                        }
+                    } else {
+                        hidePopup();
+                    }
+                }).catch(function (error) {
+                    console.error("Error in hitTest:", error);
+                });
+            });
+
+            view.when().catch(function (error) {
+                console.error("Error loading view:", error);
+            });
+
+            // Layer switching logic
+            document.querySelector(".header").addEventListener("click", function (event) {
+                const layer = event.target.getAttribute("data-layer");
+                if (layer === "trailheads") {
+                    map.remove(trailsLayer);
+                    map.add(trailheads);
+                } else if (layer === "trails") {
+                    map.remove(trailheads);
+                    map.add(trailsLayer);
+                }
+
+                // Update the active button style
+                const nodes = document.querySelectorAll(".btn-switch");
+                nodes.forEach(node => {
+                    if (node.getAttribute("data-layer") === layer) {
+                        node.classList.add("active-map");
+                    } else {
+                        node.classList.remove("active-map");
+                    }
+                });
+            });
+
+        });
+    </script>
+</body>
+
+</html>

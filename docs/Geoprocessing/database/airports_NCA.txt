@@ -1,0 +1,15 @@
+NAME = Koyuk                LOCID = KKA        X = -161.1510772705078   Y = 64.93807220458984   
+NAME = Saint Michael        LOCID = 5S8        X = -162.11036682128906  Y = 63.49005126953125   
+NAME = Stebbins             LOCID = WBB        X = -162.28274536132812  Y = 63.51591873168945   
+NAME = Unalakleet           LOCID = UNK        X = -160.7989501953125   Y = 63.88835906982422   
+NAME = Shaktoolik           LOCID = 38A        X = -161.20252990722656  Y = 64.36263275146484   
+NAME = Elim                 LOCID = ELI        X = -162.2700653076172   Y = 64.61400604248047   
+NAME = Golovin              LOCID = GLV        X = -163.03952026367188  Y = 64.5434341430664    
+NAME = White Mountain       LOCID = WMO        X = -163.4125518798828   Y = 64.68919372558594   
+NAME = Nome                 LOCID = OME        X = -165.44525146484375  Y = 64.51219940185547   
+NAME = Savoonga             LOCID = SVA        X = -170.4926300048828   Y = 63.68639373779297   
+NAME = Teller               LOCID = K54        X = -166.3360137939453   Y = 65.24089813232422   
+NAME = Brevig Mission       LOCID = KTS        X = -166.46316528320312  Y = 65.33135986328125   
+NAME = Shishmaref           LOCID = SHH        X = -166.0895538330078   Y = 66.24956512451172   
+NAME = Wales                LOCID = IWK        X = -168.0991668701172   Y = 65.62393951416016   
+NAME = Gambell              LOCID = GAM        X = -171.73281860351562  Y = 63.76676559448242   

@@ -1,0 +1,171 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>GeocodeServer</title>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #instruction {
+            z-index: 99;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            padding: 5px;
+            margin-left: -175px;
+            height: 30px;
+            width: 355px;
+            background: rgba(25, 25, 25, 0.8);
+            color: white;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.29/"></script>
+
+    <script>
+        require(["esri/rest/locator", "esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer"], (locator, Map, MapView, FeatureLayer) => {
+            const locatorUrl = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer";
+
+            const map = new Map({
+                basemap: "streets-navigation-vector"
+            });
+
+            const featureLayer_Label = {
+                symbol: {
+                    type: "text",
+                    color: "#FFFFFF",
+                    haloColor: "#5E8D74",
+                    haloSize: "2px",
+                    font: {
+                        size: "12px",
+                        family: "Noto Sans",
+                    },
+                },
+                labelPlacement: "always-horizontal",
+                labelExpressionInfo: {
+                    expression: "$feature.NAMELSAD",
+                },
+            };
+
+            const popupFeatureLayer = {
+                "title": "Dallas Census Tract",
+                "content":
+                    "<b>GEOID :</b> {GEOID}<br>\
+                    <b>COUNTYFP:</b> {COUNTYFP}<br>\
+                    <b>Area:</b> {Area}<br>"
+            };
+
+            const featureLayer = new FeatureLayer({
+                url: "https://services2.arcgis.com/VNo0ht0YPXJoI4oE/arcgis/rest/services/tracts_total/FeatureServer/0",
+                labelingInfo: [featureLayer_Label],
+                //popupTemplate: popupFeatureLayer
+            });
+
+            const view = new MapView({
+                container: "viewDiv",
+                map: map,
+                center: [-96.796368, 32.78549],
+                zoom: 10
+            });
+
+            map.add(featureLayer);
+
+            view.popupEnabled = false;
+
+            view.on("click", (event) => {
+                const lat = Math.round(event.mapPoint.latitude * 1000) / 1000;
+                const lon = Math.round(event.mapPoint.longitude * 1000) / 1000;
+
+                view.hitTest(event).then((response) => {
+                    let featureGraphic = null;
+                    //console.log(response.results)
+                    response.results.forEach((result) => {
+                        if (result.graphic && result.graphic.layer === featureLayer) {
+                            featureGraphic = result.graphic;
+                        }
+                    });
+
+                    if (featureGraphic) {
+                        // Manually construct the popup content
+
+                        const objectIdField = featureLayer.FID; // Typically "OBJECTID" or similar
+                        const objectId = featureGraphic.attributes.FID;
+
+                        // Query the feature layer for full attributes using the objectId
+                        featureLayer.queryFeatures({
+                            objectIds: [objectId],
+                            outFields: ["*"] // Adjust the fields you want to fetch
+                        }).then((featureSet) => {
+                            if (featureSet.features.length > 0) {
+                                const fullAttributes = featureSet.features[0].attributes;
+                                let popupContent = `
+                                <b>GEOID :</b> ${fullAttributes.GEOID || "N/A"}<br>
+                                <b>COUNTYFP:</b> ${fullAttributes.COUNTYFP || "N/A"}<br>
+                                <b>Area:</b> ${fullAttributes.Area || "N/A"}<br>
+                                <b>Coordinates:</b> [${lon}, ${lat} ]<br> `;
+
+                                view.openPopup({
+                                    title: "Dallas Census Tract",
+                                    location: event.mapPoint,
+                                    content: popupContent,
+                                    features: [featureGraphic],
+                                });
+
+                                const params = {
+                                    location: event.mapPoint
+                                };
+
+                                locator.locationToAddress(locatorUrl, params).then((response) => {
+                                    popupContent += `<br><b>Address:</b> ${response.address}`;
+                                    view.popup.content = popupContent;
+                                }).catch((error) => {
+                                    console.log(error);
+                                    popupContent += "<br>No address was found for this location.";
+                                    view.popup.content = popupContent;
+                                });
+                            }
+                        }).catch((error) => {
+                            console.log("Error querying feature layer: ", error);
+                        });
+                    } else {
+                        console.log("No graphic found, possibly clicked outside feature layer.");
+                        view.popup.open({
+                            title: "Location: [" + lon + ", " + lat + "]",
+                            content: "No graphic found, possibly clicked outside feature layer.",
+                            location: event.mapPoint
+                        });
+
+                        const params = {
+                            location: event.mapPoint
+                        };
+
+                        locator.locationToAddress(locatorUrl, params).then((response) => {
+                            view.popup.content += "<br><b>Address:</b> " + response.address;
+                        }).catch((error) => {
+                            console.log(error);
+                            view.popup.content = "No address was found for this location.";
+                        });
+                    }
+                }).catch((error) => {
+                    console.log("Error with hitTest: ", error);
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+</body>
+
+</html>

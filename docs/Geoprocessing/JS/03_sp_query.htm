@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Query a feature layer (SQL)</title>
+  <style>
+    html,
+    body,
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    #infoDiv {
+      position: absolute;
+      top: 15px;
+      left: 60px;
+    }
+
+    #infoDiv input {
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px;
+    }
+
+    #optionsDiv {
+      background-color: dimgray;
+      color: white;
+      padding: 10px;
+      width: 350px;
+    }
+
+    .esri-popup .esri-popup-header .esri-title {
+      font-size: 18px;
+      font-weight: bolder;
+    }
+
+    .esri-popup .esri-popup-body .esri-popup-content {
+      font-size: 14px;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.13/"></script>
+  <script>
+    require([
+      "esri/config",
+      "esri/Map",
+      "esri/portal/Portal",
+      "esri/views/MapView",
+      "esri/widgets/BasemapGallery",
+      "esri/widgets/Search",
+      "esri/widgets/Expand",
+      "esri/WebMap",
+      "esri/layers/FeatureLayer",
+      "esri/tasks/QueryTask",
+      "esri/tasks/support/Query",
+      "esri/layers/GraphicsLayer",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Zoom",
+      "esri/widgets/Home",
+      "esri/widgets/Fullscreen",
+      "esri/widgets/LayerList",
+      "esri/widgets/Legend"
+    ], function (
+      esriConfig,
+      Map,
+      Portal,
+      MapView,
+      BasemapGallery,
+      Search,
+      Expand,
+      WebMap,
+      FeatureLayer,
+      QueryTask,
+      Query,
+      GraphicsLayer,
+      ScaleBar,
+      Zoom,
+      Home,
+      Fullscreen,
+      LayerList,
+      Legend
+    ) {
+
+      esriConfig.portalUrl = "https://jsapi.maps.arcgis.com";
+      const portal = new Portal();
+
+      const map = new Map({
+        basemap: "topo-vector",  // Set default basemap to topographic
+        popup: {
+          dockEnabled: true,
+          dockOptions: {
+            position: "top-right",
+            breakpoint: false
+          }
+        }
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        zoom: 8,
+        center: [-79.955, 38.636]
+      });
+
+      const trailsUrl = "https://services2.arcgis.com/VNo0ht0YPXJoI4oE/arcgis/rest/services/Trials/FeatureServer/0";
+
+      const popupTemplate = {
+        title: "Object ID: {OBJECTID}",
+        fieldInfos: [
+          { fieldName: "trailName", label: "trailName", format: { places: 0, digitSeperator: false } },
+          { fieldName: "Shape__Length", label: "Trail_Length", format: { places: 0, digitSeperator: true } },
+          { fieldName: "manageOrg", label: "manageOrg", format: { places: 0, digitSeperator: false } },
+          { fieldName: "trailStatus", label: "trailStatus", format: { places: 0, digitSeperator: false } }
+        ],
+        content: "<b>Trail Name:</b> {trailName} <br>\
+                  <b>Trail Length:</b> {Shape__Length} Meter<br>\
+                  <b>Management Organization:</b> {manageOrg}<br>\
+                  <b>Trail Status:</b> {trailStatus}"
+
+      };
+
+      const featureLayer = new FeatureLayer({
+        url: trailsUrl,
+        popupTemplate: popupTemplate
+      });
+      map.add(featureLayer);
+
+      const qTask = new QueryTask({ url: trailsUrl });
+      const params = new Query({ returnGeometry: true, outFields: ["*"] });
+
+      // SQL query array
+      const querySQL = ["Choose a SQL where clause...", "hike = 'No'", "hike = 'Yes'", "bike = 'No'", "bike = 'Yes'", "horse = 'No'", "horse = 'Yes'"];
+      let whereClause = querySQL[0];
+
+      // Add SQL UI
+      const select = document.createElement("select");
+      select.setAttribute("class", "esri-widget esri-select");
+      select.setAttribute("style", "width: 300px; font-family: 'Avenir Next'; font-size: 1em");
+      querySQL.forEach((query) => {
+        let option = document.createElement("option");
+        option.innerHTML = query;
+        option.value = query;
+        select.appendChild(option);
+      });
+
+      view.ui.add(select, "top-right");
+
+      // save the query results
+      // const resultsLayer = new GraphicsLayer();
+      // map.add(resultsLayer);
+
+      // Listen for changes
+      select.addEventListener('change', (event) => {
+        whereClause = event.target.value;
+        executeQuery(whereClause);
+      });
+
+      // change handler
+
+      function executeQuery(whereClause) {
+        // Clear the result layer before performing a new query
+        // resultsLayer.removeAll();
+        // Set the new where clause
+        params.where = whereClause;
+
+        // Execute the query
+        qTask.execute(params)
+          .then((results) => {
+            console.log("Feature count: " + results.features.length)
+            // Copy all features into the results Layer
+            results.features.forEach((feature) => {
+              //  resultsLayer.add(feature.clone());
+              view.graphics.removeAll();
+              // Add features to graphics layer
+              view.graphics.addMany(results.features);
+            });
+          })
+          .catch((error) => {
+            console.error("Error performing query:", error);
+          });
+      };
+
+      // Add widgets
+      var basemapGallery = new BasemapGallery({ view: view });
+      var bgExpand = new Expand({ view: view, content: basemapGallery });
+      view.ui.add(bgExpand, "top-left");
+
+      var scaleBar = new ScaleBar({ view: view, unit: "metric" });
+      view.ui.add(scaleBar, "bottom-right");
+
+      var search = new Search({ view: view });
+      view.ui.add(search, "top-right");
+
+      // Add Home widget
+      var home = new Home({ view: view });
+      view.ui.add(home, "top-left");
+
+      // Add Fullscreen widget
+      var fullscreen = new Fullscreen({ view: view });
+      view.ui.add(fullscreen, "top-right");
+
+      // Add Legend widget
+      var legend = new Legend({ view: view });
+      view.ui.add(legend, "bottom-left");
+
+    });
+  </script>
+</head>
+
+<body>
+  <div id="viewDiv"></div>
+  </div>
+</body>
+
+</html>

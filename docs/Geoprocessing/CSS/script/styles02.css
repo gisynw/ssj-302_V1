@@ -1,0 +1,93 @@
+/* Element selectors */
+body {
+    font-family:'Times New Roman', Times, serif;
+    margin: 0;
+    padding: 10px;
+}
+
+h1, h2 {
+    color: darkblue;
+}
+
+p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+
+/* ID selector */
+#main-header{
+    background-color: lightgray;
+}
+
+
+/* ID selector */
+#main-header {
+    background-color: lightgray;
+    padding: 1.2rem;
+    text-align: center;
+}
+
+/* Class selector */
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-list li {
+    display: inline;
+    margin-right: 1.2rem;
+}
+
+.nav-list li a {
+    text-decoration: none;
+    color: darkblue;
+    font-size: 1.1rem;
+}
+
+/* Descendant selector */
+header nav ul li a:hover {
+    color: orange;
+    font-size: 1.3rem;
+    padding: 10px;
+}
+
+/* Child selector */
+main > section {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Adjacent sibling selector */
+.intro + .content {
+    background-color: #c0c0c0;
+}
+
+/* Group selector */
+h2, p {
+    margin: 10px 0;
+}
+
+/* Pseudo-classes */
+a:hover {
+    color: green;
+}
+
+a:active {
+    color: darkred;
+}
+
+/* Pseudo-elements */
+.intro::before {
+    content: "★";
+    color: gold;
+    margin-right: 5px;
+}
+
+.content::after {
+    content: "✿";
+    color: pink;
+    margin-left: 5px;
+}
+

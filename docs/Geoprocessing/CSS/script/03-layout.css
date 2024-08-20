@@ -1,0 +1,112 @@
+/* Basic styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header, nav, main, footer {
+    padding: 20px;
+    margin: 10px;
+}
+
+.header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Ensure it stays on top of other elements */
+}
+
+.nav {
+    background-color: #f3f3f3;
+    overflow: auto;
+    margin-top: 80px; /* Adjust for fixed header height */
+}
+
+.nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.nav ul li {
+    float: left;
+}
+
+.nav ul li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav ul li a:hover {
+    background-color: #ddd;
+}
+
+.main {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 20px; /* Adjust for fixed header and nav */
+}
+
+.content {
+    flex: 3;
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #ccc;
+    padding: 20px;
+}
+
+.footer {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    clear: both;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+main {
+    margin-top: 80px; /* Adjust for fixed header */
+    margin-bottom: 60px; /* Adjust for fixed footer */
+}
+
+.sidebar {
+    overflow: auto; /* Ensures sidebar content is scrollable */
+    height: 300px; /* Fixed height for demonstration */
+}
+
+/* Float and Clear examples */
+.float-box {
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    background-color: #ff9999;
+}
+
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.container {
+    background-color: #e0e0e0;
+    padding: 20px;
+    margin-top: 20px;
+}

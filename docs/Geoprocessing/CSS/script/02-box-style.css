@@ -1,0 +1,46 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Gap between flex items */
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.box {
+    width: 150px; /* Content width */
+    height: 150px; /* Content height */
+    padding: 10px; /* Inside the box */
+    border: 2px solid #000; /* Border width */
+    margin: 5px; /* Space outside the box */
+    text-align: center;
+    line-height: 130px; /* Adjusted based on height and padding */
+    background-color: #ddd;
+}
+
+/* Specific box styles */
+.box1 {
+    background-color: #ff9999;
+}
+
+.box2 {
+    background-color: #99ccff;
+    width: 200px; /* Different content width */
+    height: 200px; /* Different content height */
+}
+
+.box3 {
+    background-color: #99ff99;
+    padding: 20px; /* Different padding */
+}
+
+.box4 {
+    background-color: #ffcc99;
+    border-width: 5px; /* Different border width */
+    border-style: dashed; /* Dashed border style */
+}
+
+.box5 {
+    background-color: #cc99ff;
+    margin: 20px; /* Different margin */
+    box-sizing: border-box; /* Border-box sizing */
+}

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Layout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            background-color: #f3f3f3;
+            overflow: auto;
+            margin-top: 80px;
+        }
+
+        .nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .nav ul li {
+            float: left;
+        }
+
+        .nav ul li a {
+            display: block;
+            color: black;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .nav ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .main {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .content {
+            flex: 3;
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+
+        .sidebar {
+            flex: 1;
+            background-color: #ccc;
+            padding: 20px;
+        }
+
+        .footer {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            clear: both;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        main {
+            margin-top: 80px;
+            margin-bottom: 60px;
+        }
+
+        .float-box {
+            float: left;
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            background-color: #ff9999;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .container {
+            background-color: #e0e0e0;
+            padding: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">Header</header>
+    <nav class="nav">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Blog</a></li>
+        </ul>
+    </nav>
+    <main class="main">
+        <section class="content">Main Content</section>
+        <aside class="sidebar">Sidebar</aside>
+    </main>
+
+    <div class="container clearfix">
+        <div class="float-box">Float 1</div>
+        <div class="float-box">Float 2</div>
+        <div class="float-box">Float 3</div>
+        <div class="float-box">Float 4</div>
+        <div style="clear: both;"></div>
+        <p>This text is after the floated boxes. It is cleared so it won't wrap around the floated elements.</p>
+    </div>
+
+    <footer class="footer">Footer</footer>
+</body>
+
+</html>

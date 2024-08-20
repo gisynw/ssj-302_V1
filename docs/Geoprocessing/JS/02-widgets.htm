@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ArcGIS JavaScript API Tutorial</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.25/"></script>
+</head>
+<body>
+    <div id="viewDiv" style="height: 100vh;"></div>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer",
+            "esri/widgets/ScaleBar",
+            "esri/widgets/Home",
+            "esri/widgets/Fullscreen",
+            "esri/widgets/LayerList",
+            "esri/widgets/Legend",
+            "esri/widgets/BasemapGallery",
+            "esri/widgets/Search",
+            "esri/widgets/Expand"
+        ], function (Map, MapView, FeatureLayer, ScaleBar, Home, Fullscreen, LayerList, Legend, BasemapGallery, Search, Expand) {
+            var map = new Map({
+                basemap: "topo-vector",
+            });
+
+            var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                zoom: 8,
+                center: [-79.955, 38.636],
+            });
+
+            var featureLayer = new FeatureLayer({
+                url: "https://services2.arcgis.com/VNo0ht0YPXJoI4oE/arcgis/rest/services/Trials/FeatureServer/0",
+            });
+
+            map.add(featureLayer);
+
+            view.on("click", function(event) {
+                var lat = event.mapPoint.latitude;
+                var lon = event.mapPoint.longitude;
+                console.log("Latitude: " + lat + ", Longitude: " + lon);
+            });
+
+            var basemapGallery = new BasemapGallery({ view: view });
+            var bgExpand = new Expand({ view: view, content: basemapGallery });
+            view.ui.add(bgExpand, "bottom-left");
+
+            var scaleBar = new ScaleBar({ view: view, unit: "metric" });
+            view.ui.add(scaleBar, "bottom-right");
+
+            var search = new Search({ view: view });
+            view.ui.add(search, "top-right");
+
+            var home = new Home({ view: view });
+            view.ui.add(home, "top-left");
+
+            var fullscreen = new Fullscreen({ view: view });
+            view.ui.add(fullscreen, "top-right");
+
+            var legend = new Legend({ view: view });
+            view.ui.add(legend, "top-left");
+
+            var layerList = new LayerList({ view: view });
+            view.ui.add(layerList, "top-right");
+        });
+    </script>    
+</body>
+</html>
