@@ -1,14 +1,15 @@
-# [Welcome to Yalin's Python Notes](https://gisyaliny.github.io/python/)
+# [Welcome to SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS ](https://gisyaliny.github.io/python/)
 
-Hi there! Welcome to my GitHub repository where I share my study notes on math, computer science, statistics, and coursework from Coursera classes. I'm excited to have you here!
+Hi there! Welcome to my GitHub repository where I share my lecture. I'm excited to have you here!
 
 ## About Me
 
-I am a Ph.D. Candidate in the [Department of Geospatial Information Sciences](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/) at the [University of Texas at Dallas](https://www.utdallas.edu/) (德州大学达拉斯分校).
+I am a visiting Assistant Professor at [Graduate School of Geography](https://www.clarku.edu/departments/geography/) at [Clark University](https://www.clarku.edu/). 
+
+I got a Ph.D. from the [Department of Geospatial Information Sciences](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/) at the [University of Texas at Dallas](https://www.utdallas.edu/) (德州大学达拉斯分校).
 
 ## Education
 
-- 2019–now &emsp; Ph.D. Candidates in GIScience. [University of Texas at Dallas](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/), Texas, USA
-- 2022–now &emsp; M.S. in Computer Science. [University of Texas at Dallas](https://www.binghamton.edu/geography/), Texas, USA
+- 2019–now &emsp; Ph.D. in GIScience. [University of Texas at Dallas](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/), Texas, USA
 - 2017–2019 &emsp; M.A. in Geography. [Binghamton University (SUNY)](https://www.binghamton.edu/geography/), New York, USA
-- 2013–2017 &emsp; B.S. in GIScience. [Yunnan University](http://www.srees.ynu.edu.cn/english.htm), Yunnan, China
+- 2013–2017 &emsp; B.S. in  Resource Environment and Urban-Rural Planning Management. [Xi’an University of Science and Technology](https://en.xust.edu.cn/), China
