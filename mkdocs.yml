@@ -93,3 +93,5 @@ nav:
   - Home: index.md
   - Lectures(test):
       - Week1 Lecture: "Lectures/01-Arcpy-get-start.ipynb"
+  - Labs:
+      - Week1 Lab: "Labs/week01.ipynb"
