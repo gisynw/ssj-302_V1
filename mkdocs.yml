@@ -94,6 +94,7 @@ nav:
   - Softwares:
       - Anaconda: "software/Anaconda.ipynb"
       - Visual Studio Code: "software/Visual-Studio-Code.ipynb"
+      - Git: "software/Git.ipynb"
   - Lectures:
       - Week1 Lecture: "Lectures/01-Arcpy-get-start.ipynb"
   - Labs:
