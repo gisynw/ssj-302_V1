@@ -1,5 +1,7 @@
 # [Welcome to SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS ](https://gisyaliny.github.io/python/)
 
+![LinkedIn Badge](https://img.shields.io/github/repo-size/gisynw/ssj-302)
+   
 Hi there! Welcome to my GitHub repository where I share my lecture. I'm excited to have you here!
 
 ## About Me
