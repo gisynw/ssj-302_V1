@@ -93,7 +93,7 @@ nav:
   - Home: index.md
   - Softwares:
       - Anaconda: "software/Anaconda.ipynb"
-      - Visual Studio Code: "software/Visual-Studio-Code.ipynb"
+      - Visual Studio Code: "software/Week01_Python_Intro.ipynb"
       - Git: "software/Git.ipynb"
       - Command Prompt: "software/command_prompt.ipynb"
   - Lectures:
