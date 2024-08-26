@@ -91,6 +91,9 @@ plugins:
 
 nav:
   - Home: index.md
+  - Content:
+    - Syllabus-01: "Content/syllabus.ipynb"
+    - Syllabus-02: "Content/PythonProgrammingFall2024.pdf"
   - Softwares:
       - Anaconda: "software/Anaconda.ipynb"
       - Visual Studio Code: "software/Week01_Python_Intro.ipynb"
