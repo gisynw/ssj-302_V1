@@ -103,3 +103,4 @@ nav:
   - Demo:
       - Week 1 Demo: "Demo/Week01_Python_Intro.ipynb"
   - Labs:
+      - Week 1: "Labs/week01.ipynb"
