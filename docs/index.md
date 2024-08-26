@@ -15,7 +15,7 @@ I got a Ph.D. from the [Department of Geospatial Information Sciences](https://e
 - 2013–2017 &emsp; B.S. in  Resource Environment and Urban-Rural Planning Management. [Xi’an University of Science and Technology](https://en.xust.edu.cn/), China
 
 ## Teaching
-2024 &emsp;  SSJ 30262 Web Mapping & Open Source GIS - Clark University
-2024  &emsp; SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS
-2022  &emsp; Principles of Geospatial Information Sciences -  University of Texas at Dallas
-2021  &emsp; Methods of Quantitative Analysis in the Social and Policy Science - University of Texas at Dallas
+- 2024 &emsp;  SSJ 30262 Web Mapping & Open Source GIS - Clark University
+- 2024  &emsp; SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS
+- 2022  &emsp; Principles of Geospatial Information Sciences -  University of Texas at Dallas
+- 2021  &emsp; Methods of Quantitative Analysis in the Social and Policy Science - University of Texas at Dallas
