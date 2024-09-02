@@ -99,7 +99,8 @@ nav:
       - Git: "software/Git.ipynb"
       - Command Prompt: "software/command_prompt.ipynb"
   - Lectures:
-      - Week1 Lecture: "Lectures/week01.ipynb"
+      - Week 1 Lecture: "Lectures/week01.ipynb"
+      - Week 2 Lecture: "Lectures/Week02PyFdMetal.ipynb"
   - Demo:
       - Week 1 Demo: "Demo/Week01_Python_Intro.ipynb"
  
