@@ -4,9 +4,9 @@ Hi there! Welcome to my GitHub repository where I share my lecture. I'm excited 
 
 ## About Me
 
-I am a visiting Assistant Professor at [Graduate School of Geography](https://www.clarku.edu/departments/geography/) at [Clark University](https://www.clarku.edu/). 
+I am a visiting Assistant Professor in [Graduate School of Geography](https://www.clarku.edu/departments/geography/) at [Clark University](https://www.clarku.edu/). 
 
-I got a Ph.D. from the [Department of Geospatial Information Sciences](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/) at the [University of Texas at Dallas](https://www.utdallas.edu/) (德州大学达拉斯分校).
+I hold a Ph.D. from the [Department of Geospatial Information Sciences](https://epps.utdallas.edu/about/programs/geospatial-information-sciences/) at the [University of Texas at Dallas](https://www.utdallas.edu/) (德州大学达拉斯分校).
 
 ## Education
 
@@ -16,6 +16,6 @@ I got a Ph.D. from the [Department of Geospatial Information Sciences](https://e
 
 ## Teaching
 - 2024 &emsp;  SSJ 30262 Web Mapping & Open Source GIS - Clark University
-- 2024  &emsp; SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS
+- 2024  &emsp; SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS - Clark University
 - 2022  &emsp; Principles of Geospatial Information Sciences -  University of Texas at Dallas
 - 2021  &emsp; Methods of Quantitative Analysis in the Social and Policy Science - University of Texas at Dallas
