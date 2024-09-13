@@ -98,6 +98,7 @@ nav:
       - Visual Studio Code: "software/Week01_Python_Intro.ipynb"
       - Git: "software/Git.ipynb"
       - Command Prompt: "software/command_prompt.ipynb"
+      - ArcGIS Pro: "software/ArcGISPro.ipynb"
   - Lectures:
       - Week 1 Lecture: "Lectures/week01.ipynb"
       - Week 2 Lecture: "Lectures/Week02PyFdMetal.ipynb"
