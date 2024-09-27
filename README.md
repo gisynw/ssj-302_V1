@@ -1,4 +1,4 @@
-# [Welcome to SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS ](https://gisyaliny.github.io/python/)
+# [Welcome to SSJ 302 Python Programming & SSJ 30274 Computer PROG for GIS ](https://gisynw.github.io/ssj-302/)
 
 ![LinkedIn Badge](https://img.shields.io/github/repo-size/gisynw/ssj-302)
    
