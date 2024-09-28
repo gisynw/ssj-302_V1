@@ -104,6 +104,7 @@ nav:
       - Week 2 Lecture: "Lectures/Week02PyFdMetal.ipynb"
       - Week 3 Lecture: "Lectures/Week03Fundamental02.ipynb"
       - Week 4 Lecture: "Lectures/Week04_Pandas.ipynb"
+      - Week 5 Lecture: "Lectures/Week05_visualization.ipynb"
   - Demo:
       - Week 1 Demo: "Demo/Week01_Python_Intro.ipynb"
   - Labs:
