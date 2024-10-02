@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 site_name: Clark SSJ 30262 Web Mapping
 site_description: Clark SSJ 30262 Webmapping Class Content
 site_author: Yanan Wu
@@ -7,6 +8,17 @@ copyright: "Copyright &copy; 2024 - 2025 Yanan Wu"
 # Repository
 repo_name: gisynw/ssj-30262
 repo_url: https://github.com/gisynw/ssj-30262
+=======
+site_name: Clark SSJ 302 Python
+site_description: Clark SSJ 302 Python Programming Class Content
+site_author: Yanan Wu
+site_url: https://gisynw.github.io/ssj-302
+copyright: "Copyright &copy; 2024 - 2025 Yanan Wu"
+
+# Repository
+repo_name: gisynw/SSJ-302
+repo_url: https://github.com/gisynw/SSJ-302
+>>>>>>> 9b2d09152e63fa70dad725caedc22e129ff03395
 
 # Configuration
 theme:
@@ -44,7 +56,11 @@ theme:
 extra:
   social:
     - icon: fontawesome/brands/github-alt
+<<<<<<< HEAD
       link: https://github.com/gisynw/ssj-30262
+=======
+      link: https://github.com/gisynw/SSJ-302
+>>>>>>> 9b2d09152e63fa70dad725caedc22e129ff03395
     # - icon: fontawesome/brands/google-scholar
     # link: https://scholar.google.com/citations?user=wdkZhlwAAAAJ
     - icon: fontawesome/brands/linkedin
@@ -91,6 +107,7 @@ plugins:
 
 nav:
   - Home: index.md
+<<<<<<< HEAD
   - Syllabus: 
       - Syllabus Fall 2024: "Content/syllabus.ipynb"
   - Softwares:
@@ -115,3 +132,30 @@ nav:
       - Lab 04: "Labs/Lab04.ipynb"
 
       
+=======
+  - Syllabus:
+    - Syllabus Fall 2024: "Content/syllabus.ipynb"
+  - Softwares:
+      - Anaconda: "software/Anaconda.ipynb"
+      - Visual Studio Code: "software/Week01_Python_Intro.ipynb"
+      - Git: "software/Git.ipynb"
+      - Command Prompt: "software/command_prompt.ipynb"
+      - ArcGIS Pro: "software/ArcGISPro.ipynb"
+  - Lectures:
+      - Week 1 Lecture: "Lectures/week01.ipynb"
+      - Week 2 Lecture: "Lectures/Week02PyFdMetal.ipynb"
+      - Week 3 Lecture: "Lectures/Week03Fundamental02.ipynb"
+      - Week 4 Lecture: "Lectures/Week04_Pandas.ipynb"
+      - Week 5 Lecture: "Lectures/Week05_Arcpy.ipynb"
+      - Week 6 Lecture: "Lectures/Week06_visualization/Week06_visualization_student.ipynb"
+  - Demo:
+      - Week 1 Demo: "Demo/Week01_Python_Intro.ipynb"
+      - Week 6 Demo: "Demo/Week06_visualization_Demo.ipynb"
+  - Labs:
+      - Lab 01: "Labs/Lab01_student.ipynb"
+      - Lab 02: "Labs/Lab02_student.ipynb"
+      - Lab 03: "Labs/Lab03_student.ipynb"
+      - Lab 04: "Labs/Lab04_student.ipynb"
+      - Lab 05: "Labs/Lab05/Lab05_student.ipynb"
+ 
+>>>>>>> 9b2d09152e63fa70dad725caedc22e129ff03395
