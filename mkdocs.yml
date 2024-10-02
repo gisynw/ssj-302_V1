@@ -105,9 +105,10 @@ nav:
       - Week 3 Lecture: "Lectures/Week03Fundamental02.ipynb"
       - Week 4 Lecture: "Lectures/Week04_Pandas.ipynb"
       - Week 5 Lecture: "Lectures/Week05_Arcpy.ipynb"
-      - Week 6 Lecture: "Lectures/Week06_visualization.ipynb"
+      - Week 6 Lecture: "Lectures/Week06_visualization/Week06_visualization_student.ipynb"
   - Demo:
       - Week 1 Demo: "Demo/Week01_Python_Intro.ipynb"
+      - Week 6 Demo: "Demo/Week06_visualization_Demo.ipynb"
   - Labs:
       - Lab 01: "Labs/Lab01_student.ipynb"
       - Lab 02: "Labs/Lab02_student.ipynb"
