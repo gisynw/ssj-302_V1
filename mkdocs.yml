@@ -92,10 +92,10 @@ plugins:
 nav:
   - Home: index.md
   - Syllabus:
-    - Syllabus Fall 2024: "Content/syllabus.ipynb"
+    - Syllabus Fall 2024: "Content/PythonProgrammingFall2024.ipynb"
   - Softwares:
       - Anaconda: "software/Anaconda.ipynb"
-      - Visual Studio Code: "software/Week01_Python_Intro.ipynb"
+      - Visual Studio Code: "software/Visual-Studio-Code.ipynb"
       - Git: "software/Git.ipynb"
       - Command Prompt: "software/command_prompt.ipynb"
       - ArcGIS Pro: "software/ArcGISPro.ipynb"
